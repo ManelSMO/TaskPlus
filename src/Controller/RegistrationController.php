@@ -33,6 +33,10 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Set first and last name from the form data
+            $user->setFirstName($form->get('firstName')->getData()); // Novo
+            $user->setLastName($form->get('lastName')->getData());   // Novo
+
             $hashedPassword = $userPasswordHasher->hashPassword(
                 $user,
                 $form->get('plainPassword')->getData()
@@ -45,17 +49,9 @@ class RegistrationController extends AbstractController
                 $this->entityManager->flush();
 
                 $this->addFlash('success', 'Sua conta foi criada com sucesso! Por favor, faça login com seu e-mail e senha.');
-                $this->logger->info('Usuário registrado com sucesso: ' . $user->getEmail() . ' - Hash da Senha: ' . $hashedPassword); // Loga o hash!
+                $this->logger->info('Usuário registrado com sucesso: ' . $user->getEmail() . ' - Nome: ' . $user->getFirstName() . ' ' . $user->getLastName());
 
-                // --- REMOVIDO TEMPORARIAMENTE PARA DEPURAR ---
-                // return $userAuthenticator->authenticateUser(
-                //     $user,
-                //     $authenticator,
-                //     $request
-                // );
-                // --- Em vez de login automático, redirecione para o login ---
-                return $this->redirectToRoute('app_login'); 
-                // -----------------------------------------------------------
+                return $this->redirectToRoute('app_login');
 
             } catch (\Exception $e) {
                 $this->logger->error('Erro ao registrar usuário: ' . $e->getMessage(), ['exception' => $e]);
@@ -65,6 +61,8 @@ class RegistrationController extends AbstractController
             if ($form->isSubmitted()) {
                 foreach ($form->getErrors(true) as $error) {
                     $this->logger->warning('Erro de validação no formulário de registro: ' . $error->getMessage());
+                    // Adicionar uma flash message mais detalhada para erros de validação
+                    $this->addFlash('error', 'Erro no formulário: ' . $error->getMessage());
                 }
             }
         }

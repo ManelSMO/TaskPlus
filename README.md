@@ -1,197 +1,158 @@
-TasksPlus: Sistema de Controle de Tarefas e Grupos
 
-📝 Descrição do Projeto
-TasksPlus é uma aplicação web intuitiva e robusta para gerenciamento de tarefas pessoais e organização em grupos, desenvolvida utilizando o poderoso framework PHP Symfony. O projeto visa demonstrar a aplicação de boas práticas de desenvolvimento web, arquitetura MVC, ORM (Doctrine) e princípios de segurança, ao mesmo tempo em que oferece uma ferramenta prática para aumentar a produtividade. A interface do usuário foi desenhada no Figma e replicada com CSS para proporcionar uma experiência agradável e responsiva.
+# TasksPlus: Sistema de Controle de Tarefas e Grupos ✅
 
-✨ Funcionalidades Principais
-Autenticação Completa:
+## 📝 Descrição do Projeto
 
-Registro de novos usuários com senha segura (hashing bcrypt).
+**TasksPlus** é uma aplicação web intuitiva e robusta para gerenciamento de tarefas pessoais e organização em grupos, desenvolvida utilizando o poderoso framework **PHP Symfony**. O projeto visa demonstrar a aplicação de boas práticas de desenvolvimento web, arquitetura **MVC**, **ORM (Doctrine)** e princípios de segurança, ao mesmo tempo em que oferece uma ferramenta prática para aumentar a produtividade.
 
-Login e Logout de usuários.
+A interface do usuário foi desenhada no **Figma** e replicada com **CSS** para proporcionar uma experiência agradável e responsiva.
 
-Gerenciamento de Tarefas (CRUD):
+---
+
+## ✨ Funcionalidades Principais
+
+### 🔐 Autenticação Completa
+- Registro de novos usuários com senha segura (hashing `bcrypt`);
+- Login e logout de usuários.
 
-Criação de tarefas com título, descrição, data de vencimento e prioridade (baixa, média, alta).
+### 🗂️ Gerenciamento de Tarefas (CRUD)
+- Criação de tarefas com título, descrição, data de vencimento e prioridade (baixa, média, alta);
+- Listagem de tarefas por usuário;
+- Edição e exclusão de tarefas;
+- Marcação de tarefas como concluídas/pendentes.
 
-Listagem de tarefas por usuário.
+### 👥 Gerenciamento de Grupos (CRUD)
+- Criação de grupos personalizados para categorizar tarefas;
+- Listagem, edição e exclusão de grupos.
 
-Edição de detalhes de tarefas existentes.
+### 🔗 Associação
+- Associação de tarefas a múltiplos grupos para melhor organização.
 
-Exclusão de tarefas.
+---
 
-Marcação de tarefas como concluídas/pendentes.
+## 🚀 Tecnologias Utilizadas
 
-Gerenciamento de Grupos (CRUD):
+### Backend
+- PHP 🐘 (v8.2+)
+- Symfony Framework 🌐 (v6.x)
+- Doctrine ORM 📦
+- Composer 🎶
 
-Criação de grupos personalizados para categorizar tarefas.
+### Banco de Dados
+- MySQL 🐬
 
-Listagem de grupos.
+### Frontend
+- HTML5 📄
+- CSS3 ✨ (com base em um design Figma)
+- Twig 🌱
+- Bootstrap 5 ⚛️
 
-Edição e exclusão de grupos.
+### Ferramentas de Desenvolvimento
+- Git & GitHub 🐙😺
+- PHPUnit 🧪
+- Figma 🎨
+- PlantUML 🌿
 
-Associação:
+---
 
-Associação de tarefas a múltiplos grupos para melhor organização.
+## 🛠️ Instalação e Configuração
 
-🚀 Tecnologias Utilizadas
-Este projeto foi construído com as seguintes tecnologias e ferramentas:
+### ✅ Pré-requisitos
+- PHP (v8.2 ou superior)
+- Composer
+- Servidor web (Apache, Nginx ou Symfony CLI)
+- MySQL (v8.0+ recomendado)
+- Git
 
-Backend:
+### ⚙️ Passos de Instalação
 
-PHP 🐘 (v8.2+)
+1. **Clone o Repositório:**
+   ```bash
+   git clone https://github.com/ManelSMO/TasksPlus.git
+   cd TasksPlus/php
+   ```
 
-Symfony Framework 🌐 (v6.x)
+2. **Instale as Dependências:**
+   ```bash
+   composer install
+   ```
 
-Doctrine ORM 📦
+3. **Configure o Ambiente:**
+   ```bash
+   cp .env .env.local
+   ```
+   Edite o arquivo `.env.local` com sua configuração do MySQL:
+   ```
+   DATABASE_URL="mysql://root:root@127.0.0.1:3306/tasksplus"
+   ```
 
-Composer (Gerenciador de Dependências) 🎶
+4. **Criação do Banco de Dados:**
+   ```bash
+   php bin/console doctrine:database:create
+   ```
 
-Banco de Dados:
+5. **Execução das Migrações:**
+   ```bash
+   php bin/console doctrine:migrations:migrate
+   ```
 
-MySQL 🐬
+6. **Limpeza e Aquecimento do Cache:**
+   ```bash
+   php bin/console cache:clear --env=dev
+   php bin/console cache:warmup
+   ```
 
-Frontend:
+7. **Inicie o Servidor de Desenvolvimento:**
+   ```bash
+   symfony serve
+   ```
+   Ou, alternativamente:
+   ```bash
+   php -S 127.0.0.1:8000 -t public
+   ```
 
-HTML5  Markup 📄
+---
 
-CSS3 Styling ✨ (com base em um design Figma)
+## 🖥️ Como Usar
 
-Twig (Motor de Templates) 🌱
+1. **Acesse a Aplicação:**  
+   Abra o navegador em [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
-Bootstrap 5 (via CDN para grid e componentes básicos) ⚛️
+2. **Cadastre-se:**  
+   Vá até `/register` e crie sua conta.
 
-Ferramentas de Desenvolvimento:
+3. **Faça Login:**  
+   Após o registro, vá para `/login`.
 
-Git (Controle de Versão) 🐙
+4. **Gerencie suas Tarefas:**  
+   - Acesse `/task` para visualizar suas tarefas.
+   - Use `/task/new` para criar novas tarefas.
+   - Edite, conclua ou exclua tarefas com os botões apropriados.
 
-GitHub (Hospedagem de Repositório) 😺
+5. **Gerencie seus Grupos:**  
+   - Acesse `/group` para visualizar seus grupos.
+   - Use `/group/new` para adicionar novos grupos.
 
-PHPUnit (Testes Unitários e Funcionais) 🧪
+---
 
-Figma (Design da Interface) 🎨
+## 🤝 Contribuição
 
-PlantUML (Geração de Diagramas UML) 🌿
+Contribuições são bem-vindas! Para colaborar:
 
-🛠️ Instalação e Configuração
-Siga os passos abaixo para colocar o projeto TasksPlus em funcionamento em sua máquina local.
+1. Faça um **fork** do projeto;
+2. Crie uma branch:  
+   `git checkout -b feature/nova-feature`
+3. Realize suas alterações e adicione testes;
+4. Commit:  
+   `git commit -m 'feat: nova feature'`
+5. Push:  
+   `git push origin feature/nova-feature`
+6. Abra um **Pull Request** e descreva suas mudanças.
 
-Pré-requisitos
-Certifique-se de ter instalado em seu ambiente:
+---
 
-PHP (v8.2 ou superior)
+## 👥 Autores
 
-Composer
-
-Um servidor web (Apache, Nginx, ou o servidor web embutido do Symfony CLI)
-
-Um servidor de banco de dados MySQL (v8.0+ recomendado)
-
-Git
-
-Passos de Instalação
-Clone o Repositório:
-
-git clone https://github.com/ManelSMO/TasksPlus.git
-cd TasksPlus/php # Entre no diretório raiz do projeto Symfony
-
-
-Instale as Dependências do Composer:
-
-composer install
-
-
-Configuração do Ambiente (.env):
-Copie o arquivo de exemplo do ambiente e configure suas credenciais de banco de dados.
-
-cp .env .env.local
-
-
-Edite o .env.local e ajuste a variável DATABASE_URL para sua configuração MySQL:
-
-# .env.local
-DATABASE_URL="mysql://root:root@127.0.0.1:3306/tasksplus" # Altere 'root:root' e 'tasksplus' conforme seu setup
-
-
-Configuração do Banco de Dados:
-
-Exclua o Banco de Dados Existente (se houver e para um ambiente limpo):
-Você pode fazer isso via phpMyAdmin ou MySQL CLI.
-
-DROP DATABASE IF EXISTS tasksplus;
-
-
-(Ou utilize php bin/console doctrine:database:drop --force --if-exists se estiver certo de que ele funciona para você).
-
-Crie o Banco de Dados:
-
-php bin/console doctrine:database:create
-
-
-Execute as Migrações (para criar as tabelas):
-
-php bin/console make:migration # Isso gerará um novo arquivo de migração se houver alterações no schema
-php bin/console doctrine:migrations:migrate
-
-
-Quando perguntado, confirme com yes.
-
-Limpe e Aqueça o Cache do Symfony:
-
-php bin/console cache:clear --env=dev
-php bin/console cache:warmup
-
-
-Inicie o Servidor de Desenvolvimento:
-
-symfony serve
-# Ou se não tiver o Symfony CLI instalado, pode usar:
-# php -S 127.0.0.1:8000 -t public
-
-
-A aplicação estará disponível em http://127.0.0.1:8000.
-
-🖥️ Como Usar
-Acesse a Aplicação: Abra seu navegador e vá para http://127.0.0.1:8000.
-
-Cadastre-se: Navegue para /register e crie sua conta.
-
-Faça Login: Após o registro, vá para /login e acesse com suas credenciais.
-
-Gerencie suas Tarefas:
-
-Na dashboard (/task), você pode visualizar suas tarefas.
-
-Clique em "Adicionar Nova Tarefa" (/task/new) para criar uma nova.
-
-Use os botões de "Editar", "Concluir/Reabrir" e "Excluir" na lista para gerenciar suas tarefas.
-
-Gerencie seus Grupos:
-
-Navegue para /group para ver seus grupos.
-
-Clique em "Adicionar Novo Grupo" (/group/new) para criar um novo.
-
-Use os botões de "Editar" e "Excluir" para gerenciar seus grupos.
-
-🤝 Contribuição
-Contribuições são bem-vindas! Se você deseja contribuir para este projeto, por favor:
-
-Faça um fork do repositório.
-
-Crie uma nova branch para sua funcionalidade (git checkout -b feature/minha-nova-feature).
-
-Faça suas alterações e adicione testes apropriados.
-
-Commit suas mudanças (git commit -m 'feat: Minha nova feature').
-
-Envie suas mudanças para o seu fork (git push origin feature/minha-nova-feature).
-
-Abra um Pull Request descrevendo suas alterações.
-
-👥 Autores
-[Emanuel Previatti] 
-
-[João Gabriel Zangalli] 
-
-[Vinicius Cunha]
+- Emanuel Previatti  
+- João Gabriel Zangalli  
+- Vinicius Scholtze Cunha

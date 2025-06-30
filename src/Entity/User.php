@@ -35,11 +35,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    // --- NOVOS CAMPOS: firstName e lastName ---
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'O nome é obrigatório.')]
+    #[Assert\Length(min: 2, max: 255, minMessage: 'O nome deve ter no mínimo {{ limit }} caracteres.', maxMessage: 'O nome deve ter no máximo {{ limit }} caracteres.')]
+    private ?string $firstName = null;
+
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'O sobrenome é obrigatório.')]
+    #[Assert\Length(min: 2, max: 255, minMessage: 'O sobrenome deve ter no mínimo {{ limit }} caracteres.', maxMessage: 'O sobrenome deve ter no máximo {{ limit }} caracteres.')]
+    private ?string $lastName = null;
+    // ------------------------------------------
+
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Task::class, orphanRemoval: true)]
     private Collection $tasks;
 
     #[ORM\ManyToMany(targetEntity: Group::class, mappedBy: 'users')]
-    private Collection $userGroups; // Relacionamento com Group
+    private Collection $userGroups;
 
     public function __construct()
     {
@@ -80,7 +92,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
@@ -116,6 +127,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+    // --- GETTERS E SETTERS PARA firstName e lastName ---
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): static
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): static
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+    // ----------------------------------------------------
 
     /**
      * @return Collection<int, Task>

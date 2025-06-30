@@ -22,52 +22,38 @@ class TaskType extends AbstractType
         $builder
             ->add('title', TextType::class, [
                 'label' => 'Título da Tarefa',
-                'attr' => ['class' => 'form-input'], // Adicionado para estilo
+                'attr' => ['class' => 'form-input'],
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Descrição',
                 'required' => false,
-                'attr' => ['class' => 'form-input'], // Adicionado para estilo
+                'attr' => ['class' => 'form-input'],
             ])
             ->add('dueDate', DateType::class, [
                 'label' => 'Data de Vencimento',
                 'widget' => 'single_text',
                 'required' => false,
-                'attr' => ['class' => 'form-input'], // Adicionado para estilo
+                'attr' => ['class' => 'form-input'],
             ])
             ->add('isCompleted', CheckboxType::class, [
                 'label' => 'Concluída?',
                 'required' => false,
-                'attr' => ['class' => 'form-checkbox'], // Adicionado para estilo
-                'label_attr' => ['class' => 'form-checkbox-label'], // Adicionado para estilo
+                'attr' => ['class' => 'form-checkbox'],
+                'label_attr' => ['class' => 'form-checkbox-label'],
             ])
-            // Campo para atribuir a tarefa a um usuário (opcional, se não for feito automaticamente no controller)
-            // Removido por padrão, pois o controller já atribui ao usuário logado
-            /*
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'email',
-                'multiple' => false,
-                'expanded' => false,
-                'required' => true,
-                'placeholder' => 'Selecione o Usuário',
-                'label' => 'Atribuir a Usuário',
-                'attr' => ['class' => 'form-input'],
-            ])
-            */
-            // Campo para selecionar grupos
             ->add('taskGroups', EntityType::class, [
                 'class' => Group::class,
                 'choice_label' => 'name',
                 'multiple' => true,
-                'expanded' => true, // Exibe como checkboxes
+                'expanded' => true, 
                 'required' => false,
                 'label' => 'Grupos da Tarefa',
-                'attr' => ['class' => 'form-checkbox-group-wrapper'], // Wrapper para estilo
+                'attr' => ['class' => 'form-checkbox-group-wrapper'],
                 'choice_attr' => function($choice, $key, $value) {
-                    return ['class' => 'form-checkbox']; // Estilo para checkboxes individuais
+                    return ['class' => 'form-checkbox'];
                 },
-                'label_attr' => ['class' => 'form-label'], // Estilo para o label principal do campo
+                'label_attr' => ['class' => 'form-label'],
+                'by_reference' => false, 
             ])
             ->add('priority', ChoiceType::class, [
                 'choices' => [
@@ -78,7 +64,7 @@ class TaskType extends AbstractType
                 'label' => 'Prioridade',
                 'required' => false,
                 'placeholder' => 'Selecione a Prioridade',
-                'attr' => ['class' => 'form-input'], // Adicionado para estilo
+                'attr' => ['class' => 'form-input'],
             ]);
         ;
     }

@@ -5,19 +5,35 @@
 {% block title %}Editar Grupo{% endblock %}
 
 {% block body %}
-<div class="auth-wrapper"> {# Reutilizando o wrapper para centralizar #}
-    <div class="auth-card"> {# Reutilizando o card para o formulário #}
+<div class="auth-wrapper">
+    <div class="auth-card">
         <div class="auth-card-header">
             <h1>Editar Grupo: {{ group.name }}</h1>
-            <p>Altere o nome do seu grupo.</p>
+            <p>Altere o nome do seu grupo e seus colaboradores.</p> {# Mensagem ajustada #}
         </div>
         <div class="auth-card-body">
-            {# Form para editar grupo #}
+            {# Exibir outras mensagens de erro (flash messages) se houver #}
+            {% for type, messages in app.flashes %}
+                {% if type == 'error' or type == 'warning' %} {# Adicionado 'warning' #}
+                    {% for message in messages %}
+                        <div class="auth-alert auth-alert-{{ type }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+
             {{ form_start(group_form, {'attr': {'class': 'auth-form'}}) }}
                 <div class="form-group">
                     {{ form_label(group_form.name, 'Nome do Grupo', {'label_attr': {'class': 'form-label'}}) }}
                     {{ form_widget(group_form.name, {'attr': {'class': 'form-input'}}) }}
-                    {{ form_errors(group_form.name) }}
+                    {{ form_errors(group_form.name, {'attr': {'class': 'form-error-message'}}) }}
+                </div>
+
+                {# NOVO CAMPO: E-mails dos Colaboradores #}
+                <div class="form-group">
+                    {{ form_label(group_form.collaboratorEmails, 'E-mails dos Colaboradores', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(group_form.collaboratorEmails, {'attr': {'class': 'form-input'}}) }}
+                    {{ form_errors(group_form.collaboratorEmails, {'attr': {'class': 'form-error-message'}}) }}
+                    <small class="form-text text-muted">Separe múltiplos e-mails por vírgula ou nova linha. Você será mantido como colaborador.</small>
                 </div>
 
                 <button type="submit" class="auth-button primary-button mt-3">Salvar Alterações</button>

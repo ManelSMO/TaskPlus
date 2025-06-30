@@ -1,6 +1,6 @@
 {# templates/registration/register.html.twig #}
 
-{% extends 'base.html.twig' %}
+{% extends 'auth_base.html.twig' %} {# ALTERADO AQUI #}
 
 {% block title %}Registro{% endblock %}
 
@@ -15,28 +15,58 @@
             {% for error in app.flashes('verify_email_error') %}
                 <div class="auth-alert auth-alert-error" role="alert">{{ error }}</div>
             {% endfor %}
+            {# Exibir outras mensagens de erro (flash messages) se houver #}
+            {% for type, messages in app.flashes %}
+                {% if type == 'error' or type == 'warning' %}
+                    {% for message in messages %}
+                        <div class="auth-alert auth-alert-{{ type }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
 
             {{ form_start(registrationForm, {'attr': {'class': 'auth-form'}}) }}
+                {# Campo: Nome #}
+                <div class="form-group">
+                    {{ form_label(registrationForm.firstName, 'Nome', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.firstName, {'attr': {'class': 'form-input'}}) }}
+                    {{ form_errors(registrationForm.firstName, {'attr': {'class': 'form-error-message'}}) }}
+                </div>
+
+                {# Campo: Sobrenome #}
+                <div class="form-group">
+                    {{ form_label(registrationForm.lastName, 'Sobrenome', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.lastName, {'attr': {'class': 'form-input'}}) }}
+                    {{ form_errors(registrationForm.lastName, {'attr': {'class': 'form-error-message'}}) }}
+                </div>
+
                 {# Campo E-mail #}
                 <div class="form-group">
                     {{ form_label(registrationForm.email, 'E-mail', {'label_attr': {'class': 'form-label'}}) }}
                     {{ form_widget(registrationForm.email, {'attr': {'class': 'form-input'}}) }}
-                    {{ form_errors(registrationForm.email) }}
+                    {{ form_errors(registrationForm.email, {'attr': {'class': 'form-error-message'}}) }}
                 </div>
 
-                {# Campo Senha #}
+                {# Campo Senha (RepeatedType - Primeiro campo) #}
                 <div class="form-group">
-                    {{ form_label(registrationForm.plainPassword, 'Senha', {'label_attr': {'class': 'form-label'}}) }}
-                    {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-input'}}) }}
-                    {{ form_errors(registrationForm.plainPassword) }}
+                    {{ form_label(registrationForm.plainPassword.first, 'Senha', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.plainPassword.first, {'attr': {'class': 'form-input'}}) }}
                 </div>
 
-                {# Campo Agree Terms (se você o tiver) #}
+                {# Campo Repetir Senha (RepeatedType - Segundo campo) #}
+                <div class="form-group">
+                    {{ form_label(registrationForm.plainPassword.second, 'Repetir Senha', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.plainPassword.second, {'attr': {'class': 'form-input'}}) }}
+                </div>
+                {# Exibir erros para o campo plainPassword (RepeatedType) #}
+                {{ form_errors(registrationForm.plainPassword, {'attr': {'class': 'form-error-message'}}) }}
+
+
+                {# Campo Agree Terms #}
                 {% if registrationForm.agreeTerms is defined %}
                     <div class="form-group form-check-group">
                         {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-checkbox'}}) }}
                         {{ form_label(registrationForm.agreeTerms, 'Concordo com os termos de uso', {'label_attr': {'class': 'form-checkbox-label'}}) }}
-                        {{ form_errors(registrationForm.agreeTerms) }}
+                        {{ form_errors(registrationForm.agreeTerms, {'attr': {'class': 'form-error-message'}}) }}
                     </div>
                 {% endif %}
 

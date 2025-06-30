@@ -1,12 +1,9 @@
-/* public/css/app.css - CSS Principal do Projeto TasksPlus */
 
-/* ==================================== */
 /* 1. Estilos Globais e de Reset        */
-/* ==================================== */
 body {
     margin: 0;
-    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; /* Fonte genérica moderna */
-    background-color: #f8f9fa; /* Fundo cinza claro do Figma */
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f8f9fa; 
     color: #333;
     line-height: 1.6;
 }

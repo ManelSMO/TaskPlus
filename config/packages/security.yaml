@@ -1,14 +1,10 @@
-# config/packages/security.yaml
 security:
     password_hashers:
-        # Troque 'auto' por 'bcrypt' para garantir que o hasher é sempre bcrypt
+        
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
-            algorithm: bcrypt # Mude de 'auto' para 'bcrypt'
-            cost: 13 # Custo padrão para bcrypt, bom para desenvolvimento
-            # Se você tem App\Entity\User explicitamente, ajuste aqui também:
-            # App\Entity\User:
-            #    algorithm: bcrypt
-            #    cost: 13
+            algorithm: bcrypt 
+            cost: 13 
+        
 
     providers:
         app_user_provider:
@@ -24,25 +20,20 @@ security:
             lazy: true
             provider: app_user_provider
             
-            # --- Autenticador Personalizado ---
-            # Define seu AppAuthenticator como o ponto de entrada e o autenticador principal.
-            # O "entry_point" é necessário para Symfony saber como iniciar o processo de login
-            # quando um usuário não autenticado tenta acessar uma rota protegida.
+        
             entry_point: App\Security\AppAuthenticator
             custom_authenticator: App\Security\AppAuthenticator
-            # ----------------------------------
+    
 
             logout:
                 path: app_logout
                 target: app_login
 
-    # --- Controle de Acesso (Access Control) ---
-    # Define quais rotas exigem autenticação e quais são públicas.
-    # A ordem importa: a primeira regra que casa é usada.
+   
     access_control:
         - { path: ^/login$, roles: PUBLIC_ACCESS }
         - { path: ^/register$, roles: PUBLIC_ACCESS }
-        - { path: ^/, roles: IS_AUTHENTICATED_FULLY } # Protege todas as outras rotas
+        - { path: ^/, roles: IS_AUTHENTICATED_FULLY } 
 
 when@test:
     security:
