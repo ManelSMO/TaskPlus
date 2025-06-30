@@ -1,0 +1,396 @@
+/* public/css/app.css - CSS Principal do Projeto TasksPlus */
+
+/* ==================================== */
+/* 1. Estilos Globais e de Reset        */
+/* ==================================== */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; /* Fonte genérica moderna */
+    background-color: #f8f9fa; /* Fundo cinza claro do Figma */
+    color: #333;
+    line-height: 1.6;
+}
+
+a {
+    color: #007bff; /* Cor azul padrão para links, pode ser ajustado */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ==================================== */
+/* 2. Layout Principal (Cabeçalho, Navegação, Rodapé) */
+/* ==================================== */
+.main-header {
+    background-color: #ffffff;
+    padding: 15px 30px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nav-brand {
+    font-size: 24px;
+    font-weight: bold;
+    color: #3498db; /* Azul para o brand, como no seu 'app.css' */
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-item {
+    color: #555;
+    text-decoration: none;
+    padding: 8px 12px;
+    transition: color 0.3s ease;
+}
+
+.nav-item:hover {
+    color: #3498db;
+}
+
+.nav-button {
+    background-color: #3498db;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 15px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+    background-color: #2980b9;
+}
+
+.content-wrapper {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+.main-footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+/* ==================================== */
+/* 3. Mensagens Flash (Sucesso/Erro)    */
+/* ==================================== */
+.flash-message {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.flash-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.flash-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* ==================================== */
+/* 4. Estilos para Telas de Autenticação (Login/Registro - Figma Design) */
+/* ==================================== */
+.auth-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ocupa a altura total da viewport */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.auth-card {
+    background-color: #ffffff;
+    border-radius: 15px; /* Cantos arredondados do Figma */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+    overflow: hidden;
+    width: 100%;
+    max-width: 450px; /* Largura máxima do Figma */
+}
+
+.auth-card-header {
+    background-color: #ffffff;
+    padding: 2rem;
+    text-align: center;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.auth-card-header h1 {
+    color: #343a40; /* Cor do título do Figma */
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.auth-card-header p {
+    color: #6c757d; /* Cor do subtítulo do Figma */
+    font-size: 1rem;
+}
+
+.auth-card-body {
+    padding: 2rem;
+}
+
+.form-group { /* Usado para agrupar label e input */
+    margin-bottom: 1.5rem;
+}
+
+.form-label { /* Estilo para labels de formulário */
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #495057;
+    font-size: 0.95rem;
+}
+
+.form-input { /* Estilo para inputs de texto, email, password */
+    border-radius: 8px; /* Cantos arredondados do Figma */
+    border: 1px solid #ced4da;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    width: 100%; /* Garante que o input ocupa 100% da largura do pai */
+    box-sizing: border-box; /* Inclui padding e borda na largura total */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-input:focus {
+    border-color: #80bdff; /* Cor de foco azul */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none; /* Remove o outline padrão do navegador */
+}
+
+.auth-button { /* Estilo base para botões de autenticação */
+    width: 100%;
+    padding: 0.75rem 1.25rem;
+    font-size: 1.1rem;
+    border-radius: 8px; /* Cantos arredondados */
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    margin-top: 1.5rem; /* Espaçamento padrão para botões */
+}
+
+.primary-button { /* Cor principal de botão (usado para login) */
+    background-color: #28a745; /* Verde do Figma */
+    color: #fff;
+}
+
+.primary-button:hover {
+    background-color: #218838; /* Verde mais escuro no hover */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.success-button { /* Cor de sucesso de botão (usado para registro) */
+    background-color: #3498db; /* Azul do Figma para o botão de registro */
+    color: white;
+}
+
+.success-button:hover {
+    background-color: #2980b9; /* Azul mais escuro no hover */
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+}
+
+.form-check-group { /* Para agrupar checkbox e label */
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem; /* Espaçamento abaixo do grupo do checkbox */
+}
+
+.form-checkbox { /* Estilo para o checkbox */
+    border-radius: 4px;
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-top: 0.25rem; /* Ajusta o alinhamento vertical */
+    margin-right: 0.5rem; /* Espaçamento entre checkbox e label */
+    flex-shrink: 0; /* Impede que o checkbox encolha */
+}
+
+.form-checkbox-label { /* Estilo para o label do checkbox */
+    font-size: 0.95rem;
+    color: #495057;
+    cursor: pointer;
+}
+
+.auth-footer { /* Estilo para a área de links abaixo do formulário */
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.auth-link { /* Estilo para links dentro do auth-footer */
+    color: #007bff; /* Cor azul padrão */
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.auth-link:hover {
+    text-decoration: underline;
+}
+
+/* Estilos para Mensagens de Alerta (sucesso/erro) */
+.auth-alert {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    border-radius: 0.25rem;
+    font-size: 0.9rem;
+    text-align: center;
+    border: 1px solid transparent;
+}
+
+.auth-alert-error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.auth-alert-info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}
+
+/* Estilos para Erros de Validação de Formulário (abaixo dos campos) */
+.form-error-message {
+    color: #dc3545; /* Vermelho para erros de validação */
+    font-size: 0.875em;
+    margin-top: 0.25rem;
+    display: block;
+    text-align: left;
+}
+
+/* ==================================== */
+/* 5. Estilos para Páginas de Listagem (Tarefas, Grupos) */
+/* ==================================== */
+.list-container {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.list-title {
+    font-size: 2rem;
+    color: #343a40;
+    margin: 0;
+}
+
+.btn-add-new {
+    background-color: #28a745; /* Verde para botão de adicionar */
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-add-new:hover {
+    background-color: #218838;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+}
+
+.data-table th, .data-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.data-table th {
+    background-color: #f2f2f2;
+    color: #6c757d;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.data-table tbody tr:hover {
+    background-color: #fefefe;
+}
+
+.task-item.completed {
+    text-decoration: line-through;
+    color: #888;
+}
+
+.task-actions, .group-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-action {
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: opacity 0.2s ease;
+}
+
+.btn-action:hover {
+    opacity: 0.8;
+}
+
+.btn-edit {
+    background-color: #007bff; /* Azul para editar */
+    color: white;
+    border: none;
+}
+
+.btn-delete {
+    background-color: #dc3545; /* Vermelho para deletar */
+    color: white;
+    border: none;
+}
+
+.btn-toggle-complete {
+    background-color: #ffc107; /* Amarelo para toggle */
+    color: #333;
+    border: none;
+}
+
+.no-records {
+    text-align: center;
+    padding: 2rem;
+    color: #6c757d;
+    font-size: 1.1rem;
+}

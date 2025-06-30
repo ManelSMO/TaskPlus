@@ -1,0 +1,55 @@
+{# templates/security/login.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+{# O auth-wrapper é um container flexbox para centralizar o card #}
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <div class="auth-card-header">
+            <h1>LOGIN</h1>
+            <p>Acesse sua conta para continuar.</p>
+        </div>
+        <div class="auth-card-body">
+            <form method="post" class="auth-form">
+                {% if error %}
+                    <div class="auth-alert auth-alert-error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                {% if app.user %}
+                    <div class="auth-alert auth-alert-info mb-3">
+                        Você está logado como {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}" class="auth-link">Sair</a>
+                    </div>
+                {% endif %}
+
+                <div class="form-group">
+                    <label for="inputEmail" class="form-label">E-mail</label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-input" autocomplete="email" required autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="form-label">Senha</label>
+                    <input type="password" name="password" id="inputPassword" class="form-input" autocomplete="current-password" required>
+                </div>
+
+                {# Token CSRF removido conforme sua solicitação para depuração. Reative em produção! #}
+                {# <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"> #}
+
+                <div class="form-group form-check-group">
+                    <input type="checkbox" id="remember_me" name="_remember_me" class="form-checkbox">
+                    <label for="remember_me" class="form-checkbox-label">Lembrar-me</label>
+                </div>
+
+                <button class="auth-button primary-button" type="submit">
+                    Entrar
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                <a href="{{ path('app_register') }}" class="auth-link">Criar uma conta</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

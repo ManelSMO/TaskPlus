@@ -1,0 +1,8 @@
+{# templates/group/_form.html.twig #}
+{{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.users) }}
+    {{ form_row(form.tasks) }}
+
+    <button class="btn btn-primary">{{ button_label|default('Salvar') }}</button>
+{{ form_end(form) }}

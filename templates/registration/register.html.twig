@@ -1,0 +1,52 @@
+{# templates/registration/register.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Registro{% endblock %}
+
+{% block body %}
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <div class="auth-card-header">
+            <h1>REGISTRE-SE</h1>
+            <p>Crie sua conta para começar a organizar suas tarefas.</p>
+        </div>
+        <div class="auth-card-body">
+            {% for error in app.flashes('verify_email_error') %}
+                <div class="auth-alert auth-alert-error" role="alert">{{ error }}</div>
+            {% endfor %}
+
+            {{ form_start(registrationForm, {'attr': {'class': 'auth-form'}}) }}
+                {# Campo E-mail #}
+                <div class="form-group">
+                    {{ form_label(registrationForm.email, 'E-mail', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.email, {'attr': {'class': 'form-input'}}) }}
+                    {{ form_errors(registrationForm.email) }}
+                </div>
+
+                {# Campo Senha #}
+                <div class="form-group">
+                    {{ form_label(registrationForm.plainPassword, 'Senha', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-input'}}) }}
+                    {{ form_errors(registrationForm.plainPassword) }}
+                </div>
+
+                {# Campo Agree Terms (se você o tiver) #}
+                {% if registrationForm.agreeTerms is defined %}
+                    <div class="form-group form-check-group">
+                        {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-checkbox'}}) }}
+                        {{ form_label(registrationForm.agreeTerms, 'Concordo com os termos de uso', {'label_attr': {'class': 'form-checkbox-label'}}) }}
+                        {{ form_errors(registrationForm.agreeTerms) }}
+                    </div>
+                {% endif %}
+
+                <button type="submit" class="auth-button success-button mt-3">Criar Conta</button>
+            {{ form_end(registrationForm) }}
+
+            <div class="auth-footer">
+                <a href="{{ path('app_login') }}" class="auth-link">Já tem uma conta? Faça Login</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

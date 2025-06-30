@@ -1,0 +1,71 @@
+{# templates/task/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Minhas Tarefas{% endblock %}
+
+{% block body %}
+<div class="content-wrapper"> {# Usa o wrapper de conteúdo principal #}
+    <div class="list-container">
+        <div class="list-header">
+            <h1 class="list-title">Minhas Tarefas</h1>
+            <a href="{{ path('app_task_new') }}" class="btn-add-new">Adicionar Nova Tarefa</a>
+        </div>
+
+        {% if tasks is not empty %}
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Descrição</th>
+                        <th>Data Venc.</th>
+                        <th>Prioridade</th>
+                        <th>Concluída?</th>
+                        <th>Grupos</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in tasks %}
+                        <tr class="{{ task.isCompleted ? 'task-item completed' : 'task-item' }}">
+                            <td>{{ task.title }}</td>
+                            <td>{{ task.description|length > 50 ? task.description|slice(0, 50) ~ '...' : task.description }}</td>
+                            <td>{{ task.dueDate ? task.dueDate|date('Y-m-d') : 'N/A' }}</td>
+                            <td>{{ task.priority|capitalize }}</td>
+                            <td>{{ task.isCompleted ? 'Sim' : 'Não' }}</td>
+                            <td>
+                                {% for group in task.taskGroups %}
+                                    <span class="badge bg-secondary me-1">{{ group.name }}</span>
+                                {% else %}
+                                    Nenhum
+                                {% endfor %}
+                            </td>
+                            <td class="task-actions">
+                                <a href="{{ path('app_task_edit', {'id': task.id}) }}" class="btn-action btn-edit">Editar</a>
+                                
+                                {# Formulário para toggle Complete/Incomplete #}
+                                <form method="POST" action="{{ path('app_task_toggle_complete', {'id': task.id}) }}" onsubmit="return confirm('Tem certeza que deseja mudar o status desta tarefa?');" style="display:inline-block;">
+                                    {# Removido input CSRF token para corresponder ao AppAuthenticator #}
+                                    {# <input type="hidden" name="_token" value="{{ csrf_token('toggle_task_' ~ task.id) }}"> #}
+                                    <button type="submit" class="btn-action btn-toggle-complete">
+                                        {{ task.isCompleted ? 'Reabrir' : 'Concluir' }}
+                                    </button>
+                                </form>
+
+                                {# Formulário para Excluir Tarefa #}
+                                <form method="POST" action="{{ path('app_task_delete', {'id': task.id}) }}" onsubmit="return confirm('Tem certeza que deseja excluir esta tarefa?');" style="display:inline-block;">
+                                    {# Removido input CSRF token #}
+                                    {# <input type="hidden" name="_token" value="{{ csrf_token('delete_task_' ~ task.id) }}"> #}
+                                    <button type="submit" class="btn-action btn-delete">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="no-records">Você ainda não tem tarefas. <a href="{{ path('app_task_new') }}" class="auth-link">Crie uma agora!</a></p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

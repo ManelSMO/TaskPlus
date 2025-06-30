@@ -1,0 +1,62 @@
+{# templates/group/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Meus Grupos{% endblock %}
+
+{% block body %}
+<div class="content-wrapper"> {# Usa o wrapper de conteúdo principal #}
+    <div class="list-container">
+        <div class="list-header">
+            <h1 class="list-title">Meus Grupos</h1>
+            <a href="{{ path('app_group_new') }}" class="btn-add-new">Adicionar Novo Grupo</a>
+        </div>
+
+        {% if groups is not empty %}
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Membros</th>
+                        <th>Tarefas Associadas</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for group in groups %}
+                        <tr>
+                            <td>{{ group.id }}</td>
+                            <td>{{ group.name }}</td>
+                            <td>
+                                {% for user in group.users %}
+                                    <span class="badge bg-info text-dark me-1">{{ user.email }}</span>
+                                {% else %}
+                                    Nenhum membro
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for task in group.tasks %}
+                                    <span class="badge bg-secondary me-1">{{ task.title }}</span>
+                                {% else %}
+                                    Nenhuma tarefa
+                                {% endfor %}
+                            </td>
+                            <td class="group-actions">
+                                <a href="{{ path('app_group_edit', {'id': group.id}) }}" class="btn-action btn-edit">Editar</a>
+                                <form method="POST" action="{{ path('app_group_delete', {'id': group.id}) }}" onsubmit="return confirm('Tem certeza que deseja excluir este grupo?');" style="display:inline-block;">
+                                    {# Removido input CSRF token #}
+                                    {# <input type="hidden" name="_token" value="{{ csrf_token('delete_group_' ~ group.id) }}"> #}
+                                    <button type="submit" class="btn-action btn-delete">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="no-records">Você ainda não tem grupos. <a href="{{ path('app_group_new') }}" class="auth-link">Crie um agora!</a></p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{# templates/task/show.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Detalhes da Tarefa{% endblock %}
+
+{% block body %}
+    <h1>Detalhes da Tarefa</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ task.id }}</td>
+            </tr>
+            <tr>
+                <th>Título</th>
+                <td>{{ task.title }}</td>
+            </tr>
+            <tr>
+                <th>Descrição</th>
+                <td>{{ task.description }}</td>
+            </tr>
+            <tr>
+                <th>Prazo</th>
+                <td>{{ task.dueDate ? task.dueDate|date('Y-m-d H:i:s') : 'N/A' }}</td>
+            </tr>
+            <tr>
+                <th>Concluída</th>
+                <td>{{ task.isCompleted ? 'Sim' : 'Não' }}</td>
+            </tr>
+            <tr>
+                <th>Usuário</th>
+                <td>{{ task.user.email }}</td>
+            </tr>
+            <tr>
+                <th>Grupos</th>
+                <td>
+                    {% if task.taskGroups is not empty %}
+                        {% for group in task.taskGroups %}
+                            <span class="badge bg-secondary">{{ group.name }}</span>
+                        {% endfor %}
+                    {% else %}
+                        Nenhum grupo
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_task_edit', {'id': task.id}) }}" class="btn btn-warning">Editar</a>
+    <a href="{{ path('app_task_index') }}" class="btn btn-secondary">Voltar para a Lista</a>
+
+    {{ include('task/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,58 @@
+{# templates/group/show.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Detalhes do Grupo{% endblock %}
+
+{% block body %}
+    <h1>Detalhes do Grupo: {{ group.name }}</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ group.id }}</td>
+            </tr>
+            <tr>
+                <th>Nome</th>
+                <td>{{ group.name }}</td>
+            </tr>
+            <tr>
+                <th>Membros</th>
+                <td>
+                    {% if group.users is not empty %}
+                        {% for user in group.users %}
+                            <span class="badge bg-primary">{{ user.email }}</span>
+                        {% endfor %}
+                    {% else %}
+                        Nenhum membro
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Tarefas Vinculadas</th>
+                <td>
+                    {% if group.tasks is not empty %}
+                        {% for task in group.tasks %}
+                            <p>
+                                <span class="badge bg-info">{{ task.title }}</span> - 
+                                {% if task.isCompleted %}
+                                    <span class="badge bg-success">Concluída</span>
+                                {% else %}
+                                    <span class="badge bg-warning">Pendente</span>
+                                {% endif %}
+                                (Responsável: {{ task.user.email }})
+                            </p>
+                        {% endfor %}
+                    {% else %}
+                        Nenhuma tarefa vinculada.
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_group_edit', {'id': group.id}) }}" class="btn btn-warning">Editar</a>
+    <a href="{{ path('app_group_index') }}" class="btn btn-secondary">Voltar para a Lista</a>
+
+    {{ include('group/_delete_form.html.twig') }}
+{% endblock %}

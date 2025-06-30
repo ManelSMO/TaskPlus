@@ -1,0 +1,74 @@
+{# templates/task/edit.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar Tarefa{% endblock %}
+
+{% block body %}
+<div class="auth-wrapper"> {# Reutilizando o wrapper para centralizar #}
+    <div class="auth-card"> {# Reutilizando o card para o formulário #}
+        <div class="auth-card-header">
+            <h1>Editar Tarefa: {{ task.title }}</h1>
+            <p>Altere os detalhes da sua tarefa.</p>
+        </div>
+        <div class="auth-card-body">
+            {# Form para editar tarefa #}
+            {{ form_start(task_form, {'attr': {'class': 'auth-form'}}) }}
+                {# Campo Título #}
+                <div class="form-group">
+                    {{ form_label(task_form.title, 'Título', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(task_form.title, {'attr': {'class': 'form-input'}}) }}
+                    {{ form_errors(task_form.title) }}
+                </div>
+
+                {# Campo Descrição #}
+                <div class="form-group">
+                    {{ form_label(task_form.description, 'Descrição', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(task_form.description, {'attr': {'class': 'form-input'}}) }}
+                    {{ form_errors(task_form.description) }}
+                </div>
+
+                {# Campo Data de Vencimento #}
+                <div class="form-group">
+                    {{ form_label(task_form.dueDate, 'Data de Vencimento', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(task_form.dueDate, {'attr': {'class': 'form-input'}}) }}
+                    {{ form_errors(task_form.dueDate) }}
+                </div>
+
+                {# Campo Prioridade #}
+                <div class="form-group">
+                    {{ form_label(task_form.priority, 'Prioridade', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(task_form.priority, {'attr': {'class': 'form-input'}}) }}
+                    {{ form_errors(task_form.priority) }}
+                </div>
+
+                {# Campo Concluída? #}
+                <div class="form-group form-check-group">
+                    {{ form_widget(task_form.isCompleted, {'attr': {'class': 'form-checkbox'}}) }}
+                    {{ form_label(task_form.isCompleted, 'Concluída?', {'label_attr': {'class': 'form-checkbox-label'}}) }}
+                    {{ form_errors(task_form.isCompleted) }}
+                </div>
+
+                {# Campo Grupos da Tarefa (checkboxes) #}
+                {% if task_form.taskGroups is defined %}
+                    <div class="form-group">
+                        <label class="form-label">Grupos da Tarefa</label>
+                        <div class="form-checkbox-group-wrapper">
+                            {% for child in task_form.taskGroups %}
+                                <div class="form-check d-flex align-items-center mb-2">
+                                    {{ form_widget(child, {'attr': {'class': 'form-checkbox me-2'}}) }}
+                                    {{ form_label(child, null, {'label_attr': {'class': 'form-checkbox-label'}}) }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {{ form_errors(task_form.taskGroups) }}
+                    </div>
+                {% endif %}
+
+                <button type="submit" class="auth-button primary-button mt-3">Salvar Alterações</button>
+                <a href="{{ path('app_task_index') }}" class="auth-link mt-3 d-block text-center">Voltar para a Lista</a>
+            {{ form_end(task_form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
