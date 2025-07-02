@@ -7,6 +7,7 @@
 
 A interface do usuário foi desenhada no **Figma** e replicada com **CSS** para proporcionar uma experiência agradável e responsiva.
 
+🎬 [Vídeo de Apresentação no YouTube](https://youtu.be/xh2o3fVLPao)
 ---
 
 ## ✨ Funcionalidades Principais
